@@ -14,10 +14,18 @@ namespace DEppAssignment2
     {
         const int NUMBER_OF_ROWS = 3;
         const int NUMBER_OF_COLUMNS = 3;
-        bool x = true;
-
+        bool isXTurn = true;
+        Square[,] squares = new Square[NUMBER_OF_ROWS, NUMBER_OF_COLUMNS];
+        
         public TicTacToe()
         {
+            for (int i = 0; i < NUMBER_OF_ROWS; i++)
+            {
+                for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
+                {
+                    squares[i, j] = new Square();
+                }
+            }
             InitializeComponent();
         }
 
@@ -29,19 +37,20 @@ namespace DEppAssignment2
             string buttonName = selectedButton.Name;
             buttonName = buttonName.Replace("btn", "");
             string[] position = buttonName.Split(new char[] { '_' });
-            MessageBox.Show(position[0] + ", " + position[1]);
+            //MessageBox.Show(position[0] + ", " + position[1]);
 
             if  (selectedButton.Text == "")
             {
-                if (x)
+                if (isXTurn)
                 {
+                    squares[int.Parse(position[0]), int.Parse(position[1])].selectSquare("X");
                     selectedButton.Text = "X";
                 }
                 else
                 {
                     selectedButton.Text = "O";
                 }
-                x = !x;
+                isXTurn = !isXTurn;
             }
             else
             {
