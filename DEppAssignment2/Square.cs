@@ -10,6 +10,8 @@ namespace DEppAssignment2
     {
         public bool isFull;
         public string xOrO;
+        public static int numXes;
+        public static int numOs;
         public Square()
         {
             this.isFull = false;
