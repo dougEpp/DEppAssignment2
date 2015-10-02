@@ -1,6 +1,6 @@
 ﻿namespace DEppAssignment2
 {
-    partial class Form1
+    partial class TicTacToe
     {
         /// <summary>
         /// Required designer variable.
@@ -135,7 +135,7 @@
             this.Controls.Add(this.btn1_0);
             this.Controls.Add(this.btn0_0);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Tic Tac Toe";
             this.ResumeLayout(false);
 
         }

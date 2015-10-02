@@ -10,13 +10,13 @@ using System.Windows.Forms;
 
 namespace DEppAssignment2
 {
-    public partial class Form1 : Form
+    public partial class TicTacToe : Form
     {
         const int NUMBER_OF_ROWS = 3;
         const int NUMBER_OF_COLUMNS = 3;
         bool x = true;
 
-        public Form1()
+        public TicTacToe()
         {
             InitializeComponent();
         }
@@ -25,6 +25,12 @@ namespace DEppAssignment2
         private void changeValue(object sender)
         {
             Button selectedButton = sender as Button;
+
+            string buttonName = selectedButton.Name;
+            buttonName = buttonName.Replace("btn", "");
+            string[] position = buttonName.Split(new char[] { '_' });
+            MessageBox.Show(position[0] + ", " + position[1]);
+
             if  (selectedButton.Text == "")
             {
                 if (x)
@@ -51,37 +57,30 @@ namespace DEppAssignment2
         {
             changeValue(sender);
         }
-
         private void btn0_2_Click(object sender, EventArgs e)
         {
             changeValue(sender);
         }
-
         private void btn1_0_Click(object sender, EventArgs e)
         {
             changeValue(sender);
         }
-
         private void btn1_1_Click(object sender, EventArgs e)
         {
             changeValue(sender);
         }
-
         private void btn1_2_Click(object sender, EventArgs e)
         {
             changeValue(sender);
         }
-
         private void btn2_0_Click(object sender, EventArgs e)
         {
             changeValue(sender);
         }
-
         private void btn2_1_Click(object sender, EventArgs e)
         {
             changeValue(sender);
         }
-
         private void btn2_2_Click(object sender, EventArgs e)
         {
             changeValue(sender);
