@@ -120,7 +120,7 @@
             this.btn0_2.UseVisualStyleBackColor = true;
             this.btn0_2.Click += new System.EventHandler(this.btn0_2_Click);
             // 
-            // Form1
+            // TicTacToe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,7 +134,7 @@
             this.Controls.Add(this.btn2_0);
             this.Controls.Add(this.btn1_0);
             this.Controls.Add(this.btn0_0);
-            this.Name = "Form1";
+            this.Name = "TicTacToe";
             this.Text = "Tic Tac Toe";
             this.ResumeLayout(false);
 
