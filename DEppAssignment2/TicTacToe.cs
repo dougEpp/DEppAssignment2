@@ -31,7 +31,7 @@ namespace DEppAssignment2
         }
 
 
-        private void changeValue(object sender)
+        private void changeValue(object sender, EventArgs e)
         {
             Button selectedButton = sender as Button;
 
@@ -77,43 +77,6 @@ namespace DEppAssignment2
                 }
             }
             return true;
-        }
-
-        private void btn0_0_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn0_1_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn0_2_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn1_0_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn1_1_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn1_2_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn2_0_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn2_1_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
-        }
-        private void btn2_2_Click(object sender, EventArgs e)
-        {
-            changeValue(sender);
         }
     }
 }
