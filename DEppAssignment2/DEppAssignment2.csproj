@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Square.cs" />
+    <Compile Include="Square.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TicTacToe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,7 +82,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\square-outline-xxl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\square-outline-xxl1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

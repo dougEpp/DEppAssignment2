@@ -12,6 +12,10 @@ namespace DEppAssignment2
 {
     public partial class TicTacToe : Form
     {
+        const int TOP = 20;
+        const int LEFT = 20;
+        const int HEIGHT = 70;
+        const int WIDTH = 70;
         const int NUMBER_OF_ROWS = 3;
         const int NUMBER_OF_COLUMNS = 3;
         const int VICTORY_STREAK = 3;
@@ -20,23 +24,31 @@ namespace DEppAssignment2
 
         public TicTacToe()
         {
+            int x = LEFT;
+            int y = TOP;
+            
+            InitializeComponent();
             for (int i = 0; i < NUMBER_OF_ROWS; i++)
             {
                 for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
                 {
-                    squares[i, j] = new Square();
+                    squares[i, j] = new Square(HEIGHT, WIDTH, x, y, i, j);
+                    squares[i, j].Click += changeValue;
+                    this.Controls.Add(squares[i, j]);
+                    x += WIDTH;
                 }
+                y += HEIGHT;
+                x = LEFT;
             }
-            InitializeComponent();
         }
 
 
-        private void changeValue(object sender, EventArgs e)
+        public void changeValue(object sender, EventArgs e)
         {
-            Button selectedButton = sender as Button;
+            PictureBox selectedButton = sender as PictureBox;
 
             string buttonName = selectedButton.Name;
-            buttonName = buttonName.Replace("btn", "");
+            buttonName = buttonName.Replace("pbx", "");
             string[] position = buttonName.Split(new char[] { '_' });
             //MessageBox.Show(position[0] + ", " + position[1]);
 
@@ -77,6 +89,11 @@ namespace DEppAssignment2
                 }
             }
             return true;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
