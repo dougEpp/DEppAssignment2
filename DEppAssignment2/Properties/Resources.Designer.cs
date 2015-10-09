@@ -63,6 +63,26 @@ namespace DEppAssignment2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap blue_o {
+            get {
+                object obj = ResourceManager.GetObject("blue-o", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blue_x {
+            get {
+                object obj = ResourceManager.GetObject("blue-x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap square_outline_xxl {
             get {
                 object obj = ResourceManager.GetObject("square-outline-xxl", resourceCulture);

@@ -20,13 +20,15 @@ namespace DEppAssignment2
         const int NUMBER_OF_COLUMNS = 3;
         const int VICTORY_STREAK = 3;
         bool isXTurn = true;
+        string winner;
+
         Square[,] squares = new Square[NUMBER_OF_ROWS, NUMBER_OF_COLUMNS];
 
         public TicTacToe()
         {
             int x = LEFT;
             int y = TOP;
-            
+
             InitializeComponent();
             for (int i = 0; i < NUMBER_OF_ROWS; i++)
             {
@@ -50,31 +52,36 @@ namespace DEppAssignment2
             string buttonName = selectedButton.Name;
             buttonName = buttonName.Replace("pbx", "");
             string[] position = buttonName.Split(new char[] { '_' });
+            int row = int.Parse(position[0]);
+            int column = int.Parse(position[1]);
             //MessageBox.Show(position[0] + ", " + position[1]);
 
-            if  (selectedButton.Text == "")
+            if (squares[row, column].isFull == false)
             {
                 if (isXTurn)
                 {
-                    squares[int.Parse(position[0]), int.Parse(position[1])].selectSquare("X");
-                    selectedButton.Text = "X";
+                    squares[row, column].selectSquare("X");
                     Square.numXes++;
                     //MessageBox.Show(Square.numXes.ToString());
                 }
                 else
                 {
-                    squares[int.Parse(position[0]), int.Parse(position[1])].selectSquare("X");
-                    selectedButton.Text = "O";
+                    squares[row, column].selectSquare("O");
                     Square.numOs++;
                     //MessageBox.Show(Square.numOs.ToString());
                 }
+                checkWinner(row, column);
                 isXTurn = !isXTurn;
             }
             else
             {
                 MessageBox.Show("Already full");
             }
-            if (allFull())
+            if (winner != null)
+            {
+                MessageBox.Show(winner);
+            }
+            if (allFull() && winner == null)
             {
                 MessageBox.Show("Game Over!");
             }
@@ -90,10 +97,33 @@ namespace DEppAssignment2
             }
             return true;
         }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void checkWinner(int row, int column)
         {
+            string xOrO;
 
+            if (isXTurn)
+            {
+                xOrO = "X";
+            }
+            else
+            {
+                xOrO = "O";
+            }
+
+            for (int i = 0; i < NUMBER_OF_ROWS; i++)
+            {
+                if (squares[i, 0].xOrO == xOrO && squares[i, 1].xOrO == xOrO && squares[i, 2].xOrO == xOrO)
+                {
+                    winner = xOrO;
+                }
+            }
+            for (int i = 0; i < NUMBER_OF_COLUMNS; i++)
+            {
+                if (squares[0, i].xOrO == xOrO && squares[1, i].xOrO == xOrO && squares[2, i].xOrO == xOrO)
+                {
+                    winner = xOrO;
+                }
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ namespace DEppAssignment2
         {
             this.isFull = true;
             this.xOrO = xOrO;
+            this.Image = (xOrO == "X") ? DEppAssignment2.Properties.Resources.blue_x : DEppAssignment2.Properties.Resources.blue_o;
         }
     }
 }
