@@ -11,8 +11,6 @@ namespace DEppAssignment2
     {
         public bool isFull;
         public string xOrO;
-        public static int numXes;
-        public static int numOs;
         public Square(int height, int width, int x, int y, int row, int column)
         {
             this.Height = height;
@@ -33,6 +31,12 @@ namespace DEppAssignment2
             this.isFull = true;
             this.xOrO = xOrO;
             this.Image = (xOrO == "X") ? DEppAssignment2.Properties.Resources.blue_x : DEppAssignment2.Properties.Resources.blue_o;
+        }
+        public void clearSquare()
+        {
+            this.isFull = false;
+            this.xOrO = null;
+            this.Image = DEppAssignment2.Properties.Resources.square_outline_xxl1;
         }
     }
 }

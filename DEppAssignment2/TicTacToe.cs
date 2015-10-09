@@ -18,7 +18,6 @@ namespace DEppAssignment2
         const int WIDTH = 70;
         const int NUMBER_OF_ROWS = 3;
         const int NUMBER_OF_COLUMNS = 3;
-        const int VICTORY_STREAK = 3;
         bool isXTurn = true;
         string winner;
 
@@ -42,35 +41,31 @@ namespace DEppAssignment2
                 y += HEIGHT;
                 x = LEFT;
             }
+            btnFillRandom.Enabled = false;
         }
-
 
         public void changeValue(object sender, EventArgs e)
         {
             PictureBox selectedButton = sender as PictureBox;
 
-            string buttonName = selectedButton.Name;
-            buttonName = buttonName.Replace("pbx", "");
+            string buttonName = selectedButton.Name.Replace("pbx", "");
             string[] position = buttonName.Split(new char[] { '_' });
             int row = int.Parse(position[0]);
             int column = int.Parse(position[1]);
-            //MessageBox.Show(position[0] + ", " + position[1]);
 
             if (squares[row, column].isFull == false)
             {
                 if (isXTurn)
                 {
                     squares[row, column].selectSquare("X");
-                    Square.numXes++;
-                    //MessageBox.Show(Square.numXes.ToString());
+                    btnFillRandom.Enabled = true;
                 }
                 else
                 {
                     squares[row, column].selectSquare("O");
-                    Square.numOs++;
-                    //MessageBox.Show(Square.numOs.ToString());
+                    btnFillRandom.Enabled = false;
                 }
-                checkWinner(row, column);
+                checkWinner();
                 isXTurn = !isXTurn;
             }
             else
@@ -79,7 +74,15 @@ namespace DEppAssignment2
             }
             if (winner != null)
             {
-                MessageBox.Show(winner);
+                MessageBox.Show(winner + " wins!");
+                for (int i = 0; i < NUMBER_OF_ROWS; i++)
+                {
+                    for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
+                    {
+                        squares[i, j].Enabled = false;
+                    }
+                }
+
             }
             if (allFull() && winner == null)
             {
@@ -97,7 +100,40 @@ namespace DEppAssignment2
             }
             return true;
         }
-        private void checkWinner(int row, int column)
+        private void btnFillRandom_Click(object sender, EventArgs e)
+        {
+            bool success = false;
+            Random rand = new Random();
+
+            while (success == false)
+            {
+                int row = rand.Next(NUMBER_OF_ROWS);
+                int col = rand.Next(NUMBER_OF_COLUMNS);
+
+                if (!squares[row, col].isFull)
+                {
+                    squares[row, col].selectSquare("O");
+                    success = true;
+                    btnFillRandom.Enabled = false;
+                }
+            }
+            checkWinner();
+            isXTurn = !isXTurn;
+
+            if (winner != null)
+            {
+                MessageBox.Show(winner + " wins!");
+
+                for (int i = 0; i < NUMBER_OF_ROWS; i++)
+                {
+                    for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
+                    {
+                        squares[i, j].Enabled = false;
+                    }
+                }
+            }
+        }
+        private void checkWinner()
         {
             string xOrO;
 
@@ -115,6 +151,7 @@ namespace DEppAssignment2
                 if (squares[i, 0].xOrO == xOrO && squares[i, 1].xOrO == xOrO && squares[i, 2].xOrO == xOrO)
                 {
                     winner = xOrO;
+                    return;
                 }
             }
             for (int i = 0; i < NUMBER_OF_COLUMNS; i++)
@@ -122,8 +159,40 @@ namespace DEppAssignment2
                 if (squares[0, i].xOrO == xOrO && squares[1, i].xOrO == xOrO && squares[2, i].xOrO == xOrO)
                 {
                     winner = xOrO;
+                    return;
                 }
             }
+            if (squares[0, 0].xOrO == xOrO && squares[1, 1].xOrO == xOrO && squares[2, 2].xOrO == xOrO)
+            {
+                winner = xOrO;
+                return;
+            }
+            if (squares[0, 2].xOrO == xOrO && squares[1, 1].xOrO == xOrO && squares[2, 0].xOrO == xOrO)
+            {
+                winner = xOrO;
+                return;
+            }
         }
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            resetForm();
+        }
+
+        private void resetForm()
+        {
+            for (int i = 0; i < NUMBER_OF_ROWS; i++)
+            {
+                for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
+                {
+                    squares[i, j].clearSquare();
+                    squares[i, j].Enabled = true;
+                }
+            }
+            winner = null;
+            isXTurn = true;
+            btnFillRandom.Enabled = false;
+
+        }
+
     }
 }
