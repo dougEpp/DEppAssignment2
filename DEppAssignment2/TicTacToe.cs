@@ -51,6 +51,7 @@ namespace DEppAssignment2
             int y = TOP;
 
             InitializeComponent();
+
             for (int i = 0; i < NUMBER_OF_ROWS; i++)
             {
                 for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
@@ -73,23 +74,18 @@ namespace DEppAssignment2
         /// <param name="e">The event arguments for the click event</param>
         public void changeValue(object sender, EventArgs e)
         {
-            PictureBox selectedButton = sender as PictureBox;
+            Square selectedButton = (Square)sender;
 
-            string buttonName = selectedButton.Name.Replace("pbx", "");
-            string[] position = buttonName.Split(new char[] { '_' });
-            int row = int.Parse(position[0]);
-            int column = int.Parse(position[1]);
-
-            if (squares[row, column].isFull == false)
+            if (selectedButton.isFull == false)
             {
                 if (isXTurn)
                 {
-                    squares[row, column].selectSquare("X");
+                    selectedButton.selectSquare("X");
                     btnFillRandom.Enabled = true;
                 }
                 else
                 {
-                    squares[row, column].selectSquare("O");
+                    selectedButton.selectSquare("O");
                     btnFillRandom.Enabled = false;
                 }
                 checkWinner();
@@ -228,6 +224,5 @@ namespace DEppAssignment2
             btnFillRandom.Enabled = false;
             lblXOrO.Text = "X";
         }
-
     }
 }
