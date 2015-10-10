@@ -94,6 +94,7 @@ namespace DEppAssignment2
                 }
                 checkWinner();
                 isXTurn = !isXTurn;
+                lblXOrO.Text = (isXTurn) ? "X" : "O";
             }
             else
             {
@@ -103,7 +104,6 @@ namespace DEppAssignment2
             {
                 endGame();
             }
-
         }
         /// <summary>
         /// Checks if all squares are full
@@ -144,6 +144,7 @@ namespace DEppAssignment2
             }
             checkWinner();
             isXTurn = !isXTurn;
+            lblXOrO.Text = (isXTurn) ? "X" : "O";
 
             if ((winner != null) || allFull())
             {
@@ -191,11 +192,11 @@ namespace DEppAssignment2
         {
             if (winner != null)
             {
-                MessageBox.Show(winner + " wins!");
+                MessageBox.Show(winner + " wins!", "Game Over");
             }
             else
             {
-                MessageBox.Show("Game Over!");
+                MessageBox.Show("No winner.","Game Over");
             }
             foreach (Square square in squares)
             {
