@@ -1,4 +1,18 @@
-﻿using System;
+﻿/* Tic Tac Toe
+ * A simple C# Windows Forms game
+ * 
+ * Revision History: 
+ *  2015/10/02 - Created, Doug Epp
+ *  2015/10/08 - Changed grid to be created programatically;
+ *             - Added images to project
+ *             - Added code to update value of squares
+ *  2015/10/09 - Added win condition checking
+ *             - Fixed bugs
+ *             - Added randomized computer opponent
+ *             - Completed, Doug Epp
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,19 +24,27 @@ using System.Windows.Forms;
 
 namespace DEppAssignment2
 {
+    /// <summary>
+    /// A class to create the Tic Tac Toe game form
+    /// </summary>
     public partial class TicTacToe : Form
     {
+        //constant declaration
         const int TOP = 20;
         const int LEFT = 20;
         const int HEIGHT = 70;
         const int WIDTH = 70;
         const int NUMBER_OF_ROWS = 3;
         const int NUMBER_OF_COLUMNS = 3;
+
+        //global variable declaration
         bool isXTurn = true;
         string winner;
-
         Square[,] squares = new Square[NUMBER_OF_ROWS, NUMBER_OF_COLUMNS];
 
+        /// <summary>
+        /// Initializes game form, creates grid of squares
+        /// </summary>
         public TicTacToe()
         {
             int x = LEFT;
@@ -44,6 +66,11 @@ namespace DEppAssignment2
             btnFillRandom.Enabled = false;
         }
 
+        /// <summary>
+        /// Sets value of the clicked square to "X" or "O"
+        /// </summary>
+        /// <param name="sender">The button that was clicked</param>
+        /// <param name="e">The event arguments for the click event</param>
         public void changeValue(object sender, EventArgs e)
         {
             PictureBox selectedButton = sender as PictureBox;
@@ -72,23 +99,16 @@ namespace DEppAssignment2
             {
                 MessageBox.Show("Already full");
             }
-            if (winner != null)
+            if ((winner != null) || allFull())
             {
-                MessageBox.Show(winner + " wins!");
-                for (int i = 0; i < NUMBER_OF_ROWS; i++)
-                {
-                    for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
-                    {
-                        squares[i, j].Enabled = false;
-                    }
-                }
+                endGame();
+            }
 
-            }
-            if (allFull() && winner == null)
-            {
-                MessageBox.Show("Game Over!");
-            }
         }
+        /// <summary>
+        /// Checks if all squares are full
+        /// </summary>
+        /// <returns>True if all squares are full; else false</returns>
         private bool allFull()
         {
             foreach (Square square in squares)
@@ -100,6 +120,11 @@ namespace DEppAssignment2
             }
             return true;
         }
+        /// <summary>
+        /// Fills a random square with "O"
+        /// </summary>
+        /// <param name="sender">The button that was clicked</param>
+        /// <param name="e">Event arguments for the click event</param>
         private void btnFillRandom_Click(object sender, EventArgs e)
         {
             bool success = false;
@@ -120,31 +145,17 @@ namespace DEppAssignment2
             checkWinner();
             isXTurn = !isXTurn;
 
-            if (winner != null)
+            if ((winner != null) || allFull())
             {
-                MessageBox.Show(winner + " wins!");
-
-                for (int i = 0; i < NUMBER_OF_ROWS; i++)
-                {
-                    for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
-                    {
-                        squares[i, j].Enabled = false;
-                    }
-                }
+                endGame();
             }
         }
+        /// <summary>
+        /// Checks if the current player has won
+        /// </summary>
         private void checkWinner()
         {
-            string xOrO;
-
-            if (isXTurn)
-            {
-                xOrO = "X";
-            }
-            else
-            {
-                xOrO = "O";
-            }
+            string xOrO = (isXTurn)?"X":"O";
 
             for (int i = 0; i < NUMBER_OF_ROWS; i++)
             {
@@ -173,25 +184,47 @@ namespace DEppAssignment2
                 return;
             }
         }
+        /// <summary>
+        /// Shows winner, if there is one
+        /// </summary>
+        private void endGame()
+        {
+            if (winner != null)
+            {
+                MessageBox.Show(winner + " wins!");
+            }
+            else
+            {
+                MessageBox.Show("Game Over!");
+            }
+            foreach (Square square in squares)
+            {
+                square.Enabled = false;
+            }
+            btnFillRandom.Enabled = false;
+        }
+        /// <summary>
+        /// calls the ResetForm method
+        /// </summary>
+        /// <param name="sender">The button that was clicked</param>
+        /// <param name="e">Event arguments for the click event</param>
         private void btnReset_Click(object sender, EventArgs e)
         {
             resetForm();
         }
-
+        /// <summary>
+        /// Resets the form so another game can be played
+        /// </summary>
         private void resetForm()
         {
-            for (int i = 0; i < NUMBER_OF_ROWS; i++)
+            foreach (Square square in squares)
             {
-                for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
-                {
-                    squares[i, j].clearSquare();
-                    squares[i, j].Enabled = true;
-                }
+                square.clearSquare();
+                square.Enabled = true;
             }
             winner = null;
             isXTurn = true;
             btnFillRandom.Enabled = false;
-
         }
 
     }
