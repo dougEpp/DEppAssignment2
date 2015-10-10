@@ -226,6 +226,7 @@ namespace DEppAssignment2
             winner = null;
             isXTurn = true;
             btnFillRandom.Enabled = false;
+            lblXOrO.Text = "X";
         }
 
     }
