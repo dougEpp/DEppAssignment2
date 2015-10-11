@@ -69,7 +69,9 @@ namespace DEppAssignment2
                 x = LEFT;
             }
             btnFillRandom.Enabled = false;
-            
+            MessageBox.Show("Welcome to Tic Tac Toe!\n"+
+            "Two people can play against each other, or one person can play against the computer.",
+            "Welcome to Tic Tac Toe!");
         }
 
         /// <summary>
@@ -252,11 +254,7 @@ namespace DEppAssignment2
                 MessageBox.Show("No winner.", "Game Over");
             }
 
-            foreach (Square square in squares)
-            {
-                square.Enabled = false;
-            }
-            btnFillRandom.Enabled = false;
+            resetForm();
 
             lblXScore.Text = xWins.ToString();
             lblOScore.Text = oWins.ToString();
