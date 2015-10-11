@@ -32,12 +32,16 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.lblCurrentPlayer = new System.Windows.Forms.Label();
             this.lblXOrO = new System.Windows.Forms.Label();
+            this.lblX = new System.Windows.Forms.Label();
+            this.lblO = new System.Windows.Forms.Label();
+            this.lblXScore = new System.Windows.Forms.Label();
+            this.lblOScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnFillRandom
             // 
             this.btnFillRandom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnFillRandom.Location = new System.Drawing.Point(864, 81);
+            this.btnFillRandom.Location = new System.Drawing.Point(43, 578);
             this.btnFillRandom.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.btnFillRandom.Name = "btnFillRandom";
             this.btnFillRandom.Size = new System.Drawing.Size(245, 69);
@@ -78,11 +82,55 @@
             this.lblXOrO.TabIndex = 3;
             this.lblXOrO.Text = "X";
             // 
+            // lblX
+            // 
+            this.lblX.AutoSize = true;
+            this.lblX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblX.Location = new System.Drawing.Point(858, 43);
+            this.lblX.Name = "lblX";
+            this.lblX.Size = new System.Drawing.Size(47, 46);
+            this.lblX.TabIndex = 4;
+            this.lblX.Text = "X";
+            // 
+            // lblO
+            // 
+            this.lblO.AutoSize = true;
+            this.lblO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblO.Location = new System.Drawing.Point(1058, 43);
+            this.lblO.Name = "lblO";
+            this.lblO.Size = new System.Drawing.Size(51, 46);
+            this.lblO.TabIndex = 5;
+            this.lblO.Text = "O";
+            // 
+            // lblXScore
+            // 
+            this.lblXScore.AutoSize = true;
+            this.lblXScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblXScore.Location = new System.Drawing.Point(862, 109);
+            this.lblXScore.Name = "lblXScore";
+            this.lblXScore.Size = new System.Drawing.Size(42, 46);
+            this.lblXScore.TabIndex = 6;
+            this.lblXScore.Text = "0";
+            // 
+            // lblOScore
+            // 
+            this.lblOScore.AutoSize = true;
+            this.lblOScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblOScore.Location = new System.Drawing.Point(1060, 109);
+            this.lblOScore.Name = "lblOScore";
+            this.lblOScore.Size = new System.Drawing.Size(42, 46);
+            this.lblOScore.TabIndex = 7;
+            this.lblOScore.Text = "0";
+            // 
             // TicTacToe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1667, 1032);
+            this.Controls.Add(this.lblOScore);
+            this.Controls.Add(this.lblXScore);
+            this.Controls.Add(this.lblO);
+            this.Controls.Add(this.lblX);
             this.Controls.Add(this.lblXOrO);
             this.Controls.Add(this.lblCurrentPlayer);
             this.Controls.Add(this.btnReset);
@@ -101,6 +149,10 @@
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Label lblCurrentPlayer;
         private System.Windows.Forms.Label lblXOrO;
+        private System.Windows.Forms.Label lblX;
+        private System.Windows.Forms.Label lblO;
+        private System.Windows.Forms.Label lblXScore;
+        private System.Windows.Forms.Label lblOScore;
 
 
 

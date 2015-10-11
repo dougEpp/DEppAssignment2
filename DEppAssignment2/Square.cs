@@ -23,13 +23,12 @@ namespace DEppAssignment2
         /// <param name="y">the distance from the top of the window</param>
         /// <param name="row">the row of the square</param>
         /// <param name="column">the columen of the square</param>
-        public Square(int height, int width, int x, int y, int row, int column)
+        public Square(int height, int width, int x, int y)
         {
             this.Height = height;
             this.Width = width;
             this.Top = y;
             this.Left = x;
-            this.Name = "pbx" + row + "_" + column;
             this.Image = DEppAssignment2.Properties.Resources.square_outline_xxl1;
         }
         /// <summary>

@@ -36,11 +36,14 @@ namespace DEppAssignment2
         const int WIDTH = 70;
         const int NUMBER_OF_ROWS = 3;
         const int NUMBER_OF_COLUMNS = 3;
+        const int WIN_STREAK = 3;
 
         //global variable declaration
         bool isXTurn = true;
         string winner;
         Square[,] squares = new Square[NUMBER_OF_ROWS, NUMBER_OF_COLUMNS];
+        int xWins = 0;
+        int oWins = 0;
 
         /// <summary>
         /// Initializes game form, creates grid of squares
@@ -52,11 +55,12 @@ namespace DEppAssignment2
 
             InitializeComponent();
 
+            //creates grid of squares and adds them to the form
             for (int i = 0; i < NUMBER_OF_ROWS; i++)
             {
                 for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
                 {
-                    squares[i, j] = new Square(HEIGHT, WIDTH, x, y, i, j);
+                    squares[i, j] = new Square(HEIGHT, WIDTH, x, y);
                     squares[i, j].Click += changeValue;
                     this.Controls.Add(squares[i, j]);
                     x += WIDTH;
@@ -65,6 +69,7 @@ namespace DEppAssignment2
                 x = LEFT;
             }
             btnFillRandom.Enabled = false;
+            
         }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace DEppAssignment2
         {
             Square selectedButton = (Square)sender;
 
-            if (selectedButton.isFull == false)
+            if (selectedButton.isFull == false)//the square has not been clicked
             {
                 if (isXTurn)
                 {
@@ -123,28 +128,35 @@ namespace DEppAssignment2
         /// <param name="e">Event arguments for the click event</param>
         private void btnFillRandom_Click(object sender, EventArgs e)
         {
-            bool success = false;
-            Random rand = new Random();
-
-            while (success == false)
+            if (!allFull())
             {
-                int row = rand.Next(NUMBER_OF_ROWS);
-                int col = rand.Next(NUMBER_OF_COLUMNS);
+                bool success = false;
+                Random rand = new Random();
 
-                if (!squares[row, col].isFull)
+                while (success == false)
                 {
-                    squares[row, col].selectSquare("O");
-                    success = true;
-                    btnFillRandom.Enabled = false;
+                    int row = rand.Next(NUMBER_OF_ROWS);
+                    int col = rand.Next(NUMBER_OF_COLUMNS);
+
+                    if (!squares[row, col].isFull)
+                    {
+                        squares[row, col].selectSquare("O");
+                        success = true;
+                        btnFillRandom.Enabled = false;
+                    }
+                }
+                checkWinner();
+                isXTurn = !isXTurn;
+                lblXOrO.Text = (isXTurn) ? "X" : "O";
+
+                if ((winner != null) || allFull())
+                {
+                    endGame();
                 }
             }
-            checkWinner();
-            isXTurn = !isXTurn;
-            lblXOrO.Text = (isXTurn) ? "X" : "O";
-
-            if ((winner != null) || allFull())
+            else
             {
-                endGame();
+                MessageBox.Show("All squares full!");
             }
         }
         /// <summary>
@@ -152,33 +164,70 @@ namespace DEppAssignment2
         /// </summary>
         private void checkWinner()
         {
-            string xOrO = (isXTurn)?"X":"O";
-
+            string xOrO = (isXTurn) ? "X" : "O";
+            int counter = 0;
+            //Check all rows
             for (int i = 0; i < NUMBER_OF_ROWS; i++)
             {
-                if (squares[i, 0].xOrO == xOrO && squares[i, 1].xOrO == xOrO && squares[i, 2].xOrO == xOrO)
+                for (int j = 0; j < NUMBER_OF_COLUMNS; j++)
                 {
-                    winner = xOrO;
-                    return;
+                    if (squares[i, j].xOrO == xOrO)
+                    {
+                        counter++;
+                    }
+                    if (counter == WIN_STREAK)
+                    {
+                        winner = xOrO;
+                        return;
+                    }
                 }
+                counter = 0;
             }
+            //check all columns
             for (int i = 0; i < NUMBER_OF_COLUMNS; i++)
             {
-                if (squares[0, i].xOrO == xOrO && squares[1, i].xOrO == xOrO && squares[2, i].xOrO == xOrO)
+                for (int j = 0; j < NUMBER_OF_ROWS; j++)
+                {
+                    if (squares[j, i].xOrO == xOrO)
+                    {
+                        counter++;
+                    }
+                    if (counter == WIN_STREAK)
+                    {
+                        winner = xOrO;
+                        return;
+                    }
+                }
+                counter = 0;
+            }
+            //check diagonal down-right
+            for (int i = 0; i < NUMBER_OF_ROWS; i++)
+            {
+                if (squares[i, i].xOrO == xOrO)
+                {
+                    counter++;
+                }
+                if (counter == WIN_STREAK)
                 {
                     winner = xOrO;
                     return;
                 }
             }
-            if (squares[0, 0].xOrO == xOrO && squares[1, 1].xOrO == xOrO && squares[2, 2].xOrO == xOrO)
+            counter = 0;
+            //check diagonal down-left
+            int col = 0;
+            for (int i = NUMBER_OF_ROWS - 1; i >= 0; i--)
             {
-                winner = xOrO;
-                return;
-            }
-            if (squares[0, 2].xOrO == xOrO && squares[1, 1].xOrO == xOrO && squares[2, 0].xOrO == xOrO)
-            {
-                winner = xOrO;
-                return;
+                if (squares[i, col].xOrO == xOrO)
+                {
+                    counter++;
+                }
+                if (counter == WIN_STREAK)
+                {
+                    winner = xOrO;
+                    return;
+                }
+                col++;
             }
         }
         /// <summary>
@@ -186,19 +235,31 @@ namespace DEppAssignment2
         /// </summary>
         private void endGame()
         {
-            if (winner != null)
+            if (winner != null)//a player has won
             {
+                if (winner == "X")
+                {
+                    xWins++;
+                }
+                else
+                {
+                    oWins++;
+                }
                 MessageBox.Show(winner + " wins!", "Game Over");
             }
-            else
+            else //game is over with no winner
             {
-                MessageBox.Show("No winner.","Game Over");
+                MessageBox.Show("No winner.", "Game Over");
             }
+
             foreach (Square square in squares)
             {
                 square.Enabled = false;
             }
             btnFillRandom.Enabled = false;
+
+            lblXScore.Text = xWins.ToString();
+            lblOScore.Text = oWins.ToString();
         }
         /// <summary>
         /// calls the ResetForm method
